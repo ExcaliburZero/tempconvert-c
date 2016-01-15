@@ -24,13 +24,31 @@
 
 #include <stdio.h>
 
+void get_standard_input(char * input);
+
 int main(void)
 {
-	// Print out the first integer in standard input
-	int input;
-	scanf("%d", &input);
-	printf("%d\n", input);
-
+	// Get and print out the standard input
+	char * input;
+	get_standard_input(input);
+	puts(input);
+	
 	// End the program successfully
 	return 0;
+}
+
+void get_standard_input(char * input)
+{
+	// Get the length of the standard input
+	int stdinLength;
+	fseek(stdin, 0L, SEEK_END);
+	stdinLength = ftell(stdin);
+	fseek(stdin, 0L, SEEK_SET);
+
+	// Store the standard input into a character array
+	char input_stream[stdinLength];
+	fgets(input_stream, stdinLength, stdin);
+
+	// Return the input
+	input = input_stream;
 }
