@@ -37,6 +37,12 @@ int main(void)
 	return 0;
 }
 
+/**
+ * Stores the contents of the standard input into the given character array.
+ *
+ * @param input The character array, of un-initialized length, which the
+ * contents of stdin will be stored in.
+ */
 void get_standard_input(char * input)
 {
 	// Get the length of the standard input
