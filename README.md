@@ -7,3 +7,6 @@ To generate the documentation of the application from its source code using Doxy
 ```
 doxygen
 ```
+
+## License
+tempconvert-c is availible under the [MIT License](http://opensource.org/licenses/MIT), see `LICENSE` for more information.
