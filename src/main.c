@@ -25,12 +25,17 @@
 #include <stdio.h>
 
 double get_stdin_temperature();
+double farenheit_to_celcius(double farenheit_temp);
 
 int main(void)
 {
 	// Get and print out the standard input
 	double input = get_stdin_temperature();
-	printf("%f\n", input);
+	printf("F: %f\n", input);
+
+	// Convert the temperature to Celcius and print it out
+	double celcius_temp = farenheit_to_celcius(input);
+	printf("C: %f\n", celcius_temp);
 	
 	// End the program successfully
 	return 0;
@@ -49,4 +54,15 @@ double get_stdin_temperature()
 	
 	// Return the temperature
 	return temperature;
+}
+
+/**
+ * Converts a Farenheit temperature to a Celcius temperature.
+ *
+ * @param farenheit_temp The temperature in Farenheit.
+ * @returns The temperature in Celcius.
+ */
+double farenheit_to_celcius(double farenheit_temp)
+{
+	return (farenheit_temp - 32.0) * (5.0 / 9.0);
 }
