@@ -24,37 +24,29 @@
 
 #include <stdio.h>
 
-void get_standard_input(char * input);
+double get_stdin_temperature();
 
 int main(void)
 {
 	// Get and print out the standard input
-	char * input;
-	get_standard_input(input);
-	puts(input);
+	double input = get_stdin_temperature();
+	printf("%f\n", input);
 	
 	// End the program successfully
 	return 0;
 }
 
 /**
- * Stores the contents of the standard input into the given character array.
+ * Returns the input temperature given in standard input.
  *
- * @param input The character array, of un-initialized length, which the
- * contents of stdin will be stored in.
+ * @returns The temperature given via standard input.
  */
-void get_standard_input(char * input)
+double get_stdin_temperature()
 {
-	// Get the length of the standard input
-	int stdinLength;
-	fseek(stdin, 0L, SEEK_END);
-	stdinLength = ftell(stdin);
-	fseek(stdin, 0L, SEEK_SET);
-
-	// Store the standard input into a character array
-	char input_stream[stdinLength];
-	fgets(input_stream, stdinLength, stdin);
-
-	// Return the input
-	input = input_stream;
+	// Get the temperature from stdin
+	double temperature;
+	fscanf(stdin, "%lf", &temperature);
+	
+	// Return the temperature
+	return temperature;
 }
