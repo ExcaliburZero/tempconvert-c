@@ -24,5 +24,12 @@ The documentation generation is handled by defualt using the project's makefile,
 doxygen
 ```
 
+### Manual
+The manual page for the application can be viewed from source by running the following command:
+
+```
+make man
+```
+
 ## License
 tempconvert-c is availible under the [MIT License](http://opensource.org/licenses/MIT), see `LICENSE` for more information.
