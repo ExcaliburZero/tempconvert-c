@@ -23,19 +23,81 @@
  */
 
 #include <stdio.h>
+#include <unistd.h>
 
 double get_stdin_temperature();
-double farenheit_to_celcius(double farenheit_temp);
+double farenheit_to_celsius(double farenheit_temp);
+double celsius_to_farenheit(double celsius_temp);
 
-int main(void)
+int main(int argc, char* argv[])
 {
-	// Get and print out the standard input
+	// Get the inputted temperature
 	double input = get_stdin_temperature();
-	printf("F: %f\n", input);
 
-	// Convert the temperature to Celcius and print it out
-	double celcius_temp = farenheit_to_celcius(input);
-	printf("C: %f\n", celcius_temp);
+	// Get the program flags
+	char* temperature_flags = "cf";
+	char* valid_flags = "cf";
+	char start_unit = 0;
+	char end_unit = 0;
+	char c;
+	while((c = getopt(argc, argv, valid_flags)) != -1)
+	{
+		// Check if the arguement is a temperature flag
+		if(end_unit == 0)
+		{
+			for(int i = 0; i < (sizeof(temperature_flags) / sizeof(temperature_flags[0])); i++)
+			{
+				if(c == temperature_flags[i])
+				{
+					// If the flag is a temperature flag,
+					// then take it into account
+					if(start_unit == 0)
+					{
+						start_unit = c;
+					}
+					else
+					{
+						end_unit = c;
+					}
+				}
+			}
+		}
+	}
+
+	// Make sure that two temperature flags have been entered
+	if(end_unit == 0)
+	{
+		// End program with error
+		fprintf(stderr, "Incorrect number of temperature flags.\n");
+		return 1;
+	}
+
+	// Convert the start unit into Celsius
+	double celsius_temp;
+	switch(start_unit)
+	{
+		case 'c':
+			celsius_temp = input;
+			break;
+		case 'f':
+			celsius_temp = farenheit_to_celsius(input);
+			break;
+	}
+
+	// Convert from Celsius to the end unit
+	double output;
+	switch(end_unit)
+	{
+		case 'c':
+			output = celsius_temp;
+			break;
+		case 'f':
+			output = celsius_to_farenheit(celsius_temp);
+			break;
+	}
+
+	// Print out the resulting temperature
+	printf("%lf\n", output);
 	
 	// End the program successfully
 	return 0;
@@ -57,12 +119,23 @@ double get_stdin_temperature()
 }
 
 /**
- * Converts a Farenheit temperature to a Celcius temperature.
+ * Converts a Farenheit temperature to a Celsius temperature.
  *
  * @param farenheit_temp The temperature in Farenheit.
- * @returns The temperature in Celcius.
+ * @returns The temperature in Celsius.
  */
-double farenheit_to_celcius(double farenheit_temp)
+double farenheit_to_celsius(double farenheit_temp)
 {
 	return (farenheit_temp - 32.0) * (5.0 / 9.0);
+}
+
+/**
+ * Converts a Celsius temperature to a Farenheit temperature.
+ *
+ * @param celsius_temp The temperature in Celsius.
+ * @returns The temperature in Farenheit.
+ */
+double celsius_to_farenheit(double celsius_temp)
+{
+	return celsius_temp * (9.0 / 5.0) + 32.0;
 }
