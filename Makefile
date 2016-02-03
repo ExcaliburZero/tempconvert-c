@@ -6,7 +6,7 @@ help:
 		@echo ""
 
 compile:
-	gcc -o tempconvert src/main.c -Wall -Werror
+	gcc -o tempconvert src/main.c -Wall -Werror -std=gnu99
 
 docs:
 	doxygen
