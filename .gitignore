@@ -41,3 +41,6 @@ docs/
 Session.vim
 .netrwhist
 *~
+
+# Compiled program
+tempconvert
