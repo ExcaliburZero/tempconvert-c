@@ -1,6 +1,20 @@
 # tempconvert-c
 This is a small apllication written in C which converts temperatures.
 
+## Usage
+Once tempconvert-c has been compiled or installed, you can run it as follows. The temperature to be converted should be given in through standard input. The input and output temperatures can be specified through flags, with the input temperature flag coming before the output temperature flag.
+
+```
+$ echo "32" | tempconvert -f -c
+0.000000
+```
+
+### Temperature flags
+| Flag | Temperature Unit | Abbreviation |
+|------|------------------|--------------|
+| -c   | Celsius          | °C           |
+| -f   | Farenheit        | °F           |
+
 ## Development
 The following sections provide information on the develpoment of tempconvert-c.
 
