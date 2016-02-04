@@ -46,4 +46,6 @@ make man
 ```
 
 ## License
-tempconvert-c is availible under the [MIT License](http://opensource.org/licenses/MIT), see `LICENSE` for more information.
+The source code of tempconvert-c is availible under the [MIT License](http://opensource.org/licenses/MIT), see `LICENSE` for more information.
+
+The manual file for the program in availible under the [GNU Free Documentation License version 1.3](https://www.gnu.org/licenses/fdl-1.3-standalone.html).
