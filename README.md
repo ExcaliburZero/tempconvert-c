@@ -1,4 +1,4 @@
-# tempconvert-c
+# tempconvert-c [![Travis CI Status](https://api.travis-ci.org/ExcaliburZero/tempconvert-c.svg)](https://travis-ci.org/ExcaliburZero/tempconvert-c)
 This is a small apllication written in C which converts temperatures.
 
 ## Usage
