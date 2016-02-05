@@ -30,7 +30,7 @@ make compile
 To generate the documentation of the application from its source code using Doxygen, run the following command within the main directory of the project. The documentation will then be generated in both HTML and LaTeX forms, and be placed in the `docs` sub-directory.
 
 ```
-make docs
+make doc
 ```
 
 The documentation generation is handled by defualt using the project's makefile, however you can also generate it by running the `doxygen` command with any flags that you want to use.
