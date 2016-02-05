@@ -25,11 +25,9 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include "temperature_units.h"
+
 double get_stdin_temperature();
-double farenheit_to_celsius(double farenheit_temp);
-double celsius_to_farenheit(double celsius_temp);
-double kelvin_to_celsius(double kelvin_temp);
-double celsius_to_kelvin(double celsius_temp);
 
 int main(int argc, char* argv[])
 {
@@ -124,48 +122,4 @@ double get_stdin_temperature()
 	
 	// Return the temperature
 	return temperature;
-}
-
-/**
- * Converts a Farenheit temperature to a Celsius temperature.
- *
- * @param farenheit_temp The temperature in Farenheit.
- * @returns The temperature in Celsius.
- */
-double farenheit_to_celsius(double farenheit_temp)
-{
-	return (farenheit_temp - 32.0) * (5.0 / 9.0);
-}
-
-/**
- * Converts a Celsius temperature to a Farenheit temperature.
- *
- * @param celsius_temp The temperature in Celsius.
- * @returns The temperature in Farenheit.
- */
-double celsius_to_farenheit(double celsius_temp)
-{
-	return celsius_temp * (9.0 / 5.0) + 32.0;
-}
-
-/**
- * Converts a Kelvin temperature to a Celsius temperature.
- *
- * @param kelvin_temp The temperature in Kelvin.
- * @returns The temperature in Celsius.
- */
-double kelvin_to_celsius(double kelvin_temp)
-{
-	return kelvin_temp - 273.15;
-}
-
-/**
- * Converts a Celsius temperature to a kelvin temperature.
- *
- * @param celsius_temp The temperature in Celsius.
- * @returns The temperature in Kelvin.
- */
-double celsius_to_kelvin(double celsius_temp)
-{
-	return celsius_temp + 273.15;
 }

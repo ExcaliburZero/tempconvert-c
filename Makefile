@@ -7,7 +7,7 @@ help:
 		@echo ""
 
 compile:
-	gcc -o tempconvert src/main.c -Wall -Werror -std=gnu99
+	gcc -o tempconvert src/main.c src/temperature_units.c -Wall -Werror -std=gnu99
 
 doc:
 	doxygen
