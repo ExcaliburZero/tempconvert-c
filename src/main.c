@@ -28,6 +28,8 @@
 double get_stdin_temperature();
 double farenheit_to_celsius(double farenheit_temp);
 double celsius_to_farenheit(double celsius_temp);
+double kelvin_to_celsius(double kelvin_temp);
+double celsius_to_kelvin(double celsius_temp);
 
 int main(int argc, char* argv[])
 {
@@ -35,8 +37,8 @@ int main(int argc, char* argv[])
 	double input = get_stdin_temperature();
 
 	// Get the program flags
-	char* temperature_flags = "cf";
-	char* valid_flags = "cf";
+	char* temperature_flags = "cfk";
+	char* valid_flags = "cfk";
 	char start_unit = 0;
 	char end_unit = 0;
 	char c;
@@ -82,6 +84,9 @@ int main(int argc, char* argv[])
 		case 'f':
 			celsius_temp = farenheit_to_celsius(input);
 			break;
+		case 'k':
+			celsius_temp = kelvin_to_celsius(input);
+			break;
 	}
 
 	// Convert from Celsius to the end unit
@@ -93,6 +98,9 @@ int main(int argc, char* argv[])
 			break;
 		case 'f':
 			output = celsius_to_farenheit(celsius_temp);
+			break;
+		case 'k':
+			output = celsius_to_kelvin(celsius_temp);
 			break;
 	}
 
@@ -138,4 +146,26 @@ double farenheit_to_celsius(double farenheit_temp)
 double celsius_to_farenheit(double celsius_temp)
 {
 	return celsius_temp * (9.0 / 5.0) + 32.0;
+}
+
+/**
+ * Converts a Kelvin temperature to a Celsius temperature.
+ *
+ * @param kelvin_temp The temperature in Kelvin.
+ * @returns The temperature in Celsius.
+ */
+double kelvin_to_celsius(double kelvin_temp)
+{
+	return kelvin_temp - 273.15;
+}
+
+/**
+ * Converts a Celsius temperature to a kelvin temperature.
+ *
+ * @param celsius_temp The temperature in Celsius.
+ * @returns The temperature in Kelvin.
+ */
+double celsius_to_kelvin(double celsius_temp)
+{
+	return celsius_temp + 273.15;
 }

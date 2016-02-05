@@ -14,6 +14,7 @@ $ echo "32" | tempconvert -f -c
 |------|------------------|--------------|
 | -c   | Celsius          | °C           |
 | -f   | Farenheit        | °F           |
+| -k   | Kelvin           | K            |
 
 ## Development
 The following sections provide information on the develpoment of tempconvert-c.
