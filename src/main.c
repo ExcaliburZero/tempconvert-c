@@ -29,6 +29,13 @@
 
 double get_stdin_temperature();
 
+/**
+ * Performs the various actions of the program. It is run when the program is executed.
+ *
+ * @param argc The number of arguments passed to the program.
+ * @param argv The arguements passed to the program.
+ * @returns The end code of the program.
+ */
 int main(int argc, char* argv[])
 {
 	// Get the inputted temperature
