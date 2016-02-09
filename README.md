@@ -61,6 +61,18 @@ The manual page for the application can be viewed from source by running the fol
 make man
 ```
 
+### Adding Units
+Temperature units are handled in a few different places throughout the program and its documentation. The actual temperature conversion works by first converting the input temperature into Celsius, and then converting the Celsius temperature into the output temperature. Thus, to add a new unit, only functions to convert the temperature into and from Celsius need to be added. The temperature conversion functions can be found in the `src/temperature_units.c` and `src/temperature_units.h` source files.
+
+```
+double farenheit_to_celsius(double farenheit_temp);
+double celsius_to_farenheit(double celsius_temp);
+```
+
+In addition to adding the new functions, the new unit also needs to be added to the arguement parser and unit conversion handlers that are within the `src/main.c` file.
+
+The readme file (`README.md`) and manual file (`tempconvert.1`) should both also be updated to include information on the new unit.
+
 ## License
 The source code of tempconvert-c is availible under the [MIT License](http://opensource.org/licenses/MIT), see `LICENSE` for more information.
 
