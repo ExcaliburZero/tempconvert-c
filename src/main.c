@@ -23,6 +23,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 #include "temperature_units.h"
@@ -38,8 +39,22 @@ double get_stdin_temperature();
  */
 int main(int argc, char* argv[])
 {
-	// Get the inputted temperature
-	double input = get_stdin_temperature();
+	double input;
+	
+	// Check if the command contains the input temperature or not
+	char * p;
+	char * last_arguement = argv[argc - 1];
+	strtod(last_arguement, &p);
+
+	// Get the input temperature from the command or standard input
+	if (*p == '\0') {
+		// Input from command
+		input = atof(last_arguement);
+	}
+	else {
+		// Input from standard input
+		input = get_stdin_temperature();
+	}
 
 	// Get the program flags
 	char* temperature_flags = "cfk";
