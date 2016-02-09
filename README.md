@@ -20,10 +20,25 @@ $ echo "32" | tempconvert -f -c
 The following sections provide information on the develpoment of tempconvert-c.
 
 ### Compiling
-The project can be compiled from source into an executable file throught he use of the project's makefile. That can be done by running the following command int he main directory of the project:
+The project can be compiled from source into an executable file throught he use of the project's makefile. That can be done by running the following command in the main directory of the project:
 
 ```
 make compile
+```
+
+### Integration tests
+The project has a set of integration tests associated with it which can be run after the program has been compiled in order to make usre that the compiled program correctly functions with certain test inputs and outputs. The tests can be run by using the following command within the main directory of the project:
+
+```
+make intetest
+```
+
+The integration tests are handled by the file `tests/integration_tests.py`. Test cases are defined using a list which gives the input, input unit, output unit, and expected output. If any of the given tests fail then error messages are printed out for each failure.
+
+```
+[Input_Temp, "Input_Unit", "Output_Unit", Expected_Output],
+
+[32.0, "f", "c", 0.0],
 ```
 
 ### Documentation
