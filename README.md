@@ -2,22 +2,22 @@
 This is a small apllication written in C which converts temperatures.
 
 ## Usage
-Once tempconvert-c has been compiled or installed, you can run it as follows. The temperature to be converted should be given as the final command arguement or through standard input. The input and output temperatures can be specified through flags, with the input temperature flag coming before the output temperature flag.
+Once tempconvert-c has been compiled or installed, you can run it as follows. The temperature to be converted should be given as the final command arguement or through standard input. The input and output temperature units can be specified through arguements, with the input temperature unit coming before the output temperature unit.
 
 ```
-$ tempconvert -f -c 32
+$ tempconvert f c 32
 0.000000
 
-$ echo "32" | tempconvert -f -c
+$ echo "32" | tempconvert f c
 0.000000
 ```
 
 ### Temperature flags
-| Flag | Temperature Unit | Abbreviation |
-|------|------------------|--------------|
-| -c   | Celsius          | °C           |
-| -f   | Farenheit        | °F           |
-| -k   | Kelvin           | K            |
+| Letter | Temperature Unit | Abbreviation |
+|--------|------------------|--------------|
+| c      | Celsius          | °C           |
+| f      | Farenheit        | °F           |
+| k      | Kelvin           | K            |
 
 ## Development
 The following sections provide information on the develpoment of tempconvert-c.
@@ -72,11 +72,11 @@ double farenheit_to_celsius(double farenheit_temp);
 double celsius_to_farenheit(double celsius_temp);
 ```
 
-In addition to adding the new functions, the new unit also needs to be added to the arguement parser and unit conversion handlers that are within the `src/main.c` file.
+In addition to adding the new functions, the new unit also needs to be added to the temperature unit checker and unit conversion handlers that are within the `src/main.c` file.
 
 The readme file (`README.md`) and manual file (`tempconvert.1`) should both also be updated to include information on the new unit.
 
 ## License
-The source code of tempconvert-c is availible under the [MIT License](http://opensource.org/licenses/MIT), see `LICENSE` for more information.
+The source code of tempconvert-c is available under the [MIT License](http://opensource.org/licenses/MIT), see `LICENSE` for more information.
 
-The manual file for the program in availible under the [GNU Free Documentation License version 1.3](https://www.gnu.org/licenses/fdl-1.3-standalone.html).
+The manual file for the program in available under the [GNU Free Documentation License version 1.3](https://www.gnu.org/licenses/fdl-1.3-standalone.html).

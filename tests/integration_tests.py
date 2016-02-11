@@ -41,7 +41,7 @@ def run_test(input_temp, input_unit, output_unit, expected_temp):
     :returns bool: Whether or not the program output was correct.
     """
     # Construct the command to run
-    command = "echo '" + str(input_temp) + "' | ./tempconvert -" + input_unit + " -" + output_unit
+    command = "echo '" + str(input_temp) + "' | ./tempconvert " + input_unit + " " + output_unit
 
     # Run the command and get its output
     program_run = Popen(command, shell=True, stdout=PIPE)

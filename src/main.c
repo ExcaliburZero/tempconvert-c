@@ -42,52 +42,57 @@ int main(int argc, char* argv[])
 	double input;
 	
 	// Check if the command contains the input temperature or not
+	int units_from_args;
 	char * p;
 	char * last_arguement = argv[argc - 1];
 	strtod(last_arguement, &p);
 
 	// Get the input temperature from the command or standard input
-	if (*p == '\0') {
+	if (*p == '\0')
+	{
 		// Input from command
 		input = atof(last_arguement);
+		units_from_args = 1;
 	}
-	else {
+	else
+	{
 		// Input from standard input
 		input = get_stdin_temperature();
+		units_from_args = 0;
 	}
 
-	// Get the program flags
-	char* temperature_flags = "cfk";
-	char* valid_flags = "cfk";
-	char start_unit = 0;
-	char end_unit = 0;
-	char c;
-	while((c = getopt(argc, argv, valid_flags)) != -1)
+	// Make sure that there are sufficient command arguments
+	if (argc - units_from_args < 3)
 	{
-		// Check if the arguement is a temperature flag
-		if(end_unit == 0)
+		// End program with error
+		fprintf(stderr, "Incorrect number of command arguements.\nYou may have forgotten to include the temperature units in the command.\n");
+		return 1;
+	}
+	
+	// Get the temperature units from the comamnd arguements
+	char start_unit = *argv[argc - units_from_args - 2];
+	char end_unit = *argv[argc - units_from_args - 1];
+
+	// Make sure that the temperature units are valid
+	char entered_flags[2] = {start_unit, end_unit};
+	int valid_flags = 1;
+
+	for (int i = 0; i < 2; i++)
+	{
+		switch (entered_flags[i])
 		{
-			for(int i = 0; i < (sizeof(temperature_flags) / sizeof(temperature_flags[0])); i++)
-			{
-				if(c == temperature_flags[i])
-				{
-					// If the flag is a temperature flag,
-					// then take it into account
-					if(start_unit == 0)
-					{
-						start_unit = c;
-					}
-					else
-					{
-						end_unit = c;
-					}
-				}
-			}
+			case 'c':
+			case 'f':
+			case 'k':
+				break;
+			default:
+				printf("Invalid temperature unit: %c\n", entered_flags[i]);
+				valid_flags = 0;
 		}
 	}
 
 	// Make sure that two temperature flags have been entered
-	if(end_unit == 0)
+	if(valid_flags == 0)
 	{
 		// End program with error
 		fprintf(stderr, "Incorrect number of temperature flags.\n");
