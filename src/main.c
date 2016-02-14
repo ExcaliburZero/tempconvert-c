@@ -28,7 +28,7 @@
 
 #include "temperature_units.h"
 
-double get_stdin_temperature();
+char * get_stdin_temperature();
 
 /**
  * Performs the various actions of the program. It is run when the program is executed.
@@ -40,35 +40,64 @@ double get_stdin_temperature();
 int main(int argc, char* argv[])
 {
 	double input;
-	
-	// Check if the command contains the input temperature or not
-	int units_from_args;
-	char * p;
-	char * last_arguement = argv[argc - 1];
-	strtod(last_arguement, &p);
+	int command_flags = 0;
+
+	// Make sure enough command arguements were given
+	if (argc - command_flags < 3 )
+	{
+		// End program with error
+		fprintf(stderr, "Incorrect number of command arguements: %d\nYou may have forgotten to include the temperature units in the command.\n", (argc - 1));
+		return 1;
+	}
 
 	// Get the input temperature from the command or standard input
-	if (*p == '\0')
+	int units_from_args;
+	if (argc - command_flags != 3)
 	{
-		// Input from command
-		input = atof(last_arguement);
+		// Input from command arguements
+		char * p;
+		char * last_arguement = argv[argc - 1];
+		input = strtod(last_arguement, &p);
 		units_from_args = 1;
 	}
 	else
 	{
-		// Input from standard input
-		input = get_stdin_temperature();
+		// Get input from standard input
 		units_from_args = 0;
+		char stdin_temp[1024];
+		int i = 0;
+		char c;
+		while( ( c = getc(stdin) ) != EOF )
+		{
+			stdin_temp[i] = c;
+			i++;
+			if ( c == '\n' )
+			{
+				break;
+			}
+		}
+		i++;
+		stdin_temp[i] = '\0';
+
+		// Copy the standar input into a new character array of its exact size
+		char stdin_temp_final[0];
+		for (int j = 0; j < i; j++)
+		{
+			stdin_temp_final[j] = stdin_temp[j];
+		}
+
+		// Convert the input into a double
+		char * o;
+		input = strtod(stdin_temp_final, &o);
+
+		// Make sure that the input is a proper temperature
+		if (*o != '\n')
+		{
+			fprintf(stderr, "Invalid input temperature: %s", stdin_temp_final);
+			return 1;
+		}
 	}
 
-	// Make sure that there are sufficient command arguments
-	if (argc - units_from_args < 3)
-	{
-		// End program with error
-		fprintf(stderr, "Incorrect number of command arguements.\nYou may have forgotten to include the temperature units in the command.\n");
-		return 1;
-	}
-	
 	// Get the temperature units from the comamnd arguements
 	char start_unit = *argv[argc - units_from_args - 2];
 	char end_unit = *argv[argc - units_from_args - 1];
@@ -86,7 +115,7 @@ int main(int argc, char* argv[])
 			case 'k':
 				break;
 			default:
-				printf("Invalid temperature unit: %c\n", entered_flags[i]);
+				fprintf(stderr, "Invalid temperature unit: %c\n", entered_flags[i]);
 				valid_flags = 0;
 		}
 	}
@@ -134,19 +163,4 @@ int main(int argc, char* argv[])
 	
 	// End the program successfully
 	return 0;
-}
-
-/**
- * Returns the input temperature given in standard input.
- *
- * @returns The temperature given via standard input.
- */
-double get_stdin_temperature()
-{
-	// Get the temperature from stdin
-	double temperature;
-	fscanf(stdin, "%lf", &temperature);
-	
-	// Return the temperature
-	return temperature;
 }
