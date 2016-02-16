@@ -76,6 +76,16 @@ In addition to adding the new functions, the new unit also needs to be added to 
 
 The readme file (`README.md`) and manual file (`tempconvert.1`) should both also be updated to include information on the new unit.
 
+### Releasing
+When a new relese of the program is to be made, there are a few things that need to be done.
+
+* Update the program manual page:
+  * Update the version number
+  * Update the date of last change
+* Make a release on GitHub
+
+Release version names should follow [semantic versioning](http://semver.org/).
+
 ## License
 The source code of tempconvert-c is available under the [MIT License](http://opensource.org/licenses/MIT), see `LICENSE` for more information.
 
