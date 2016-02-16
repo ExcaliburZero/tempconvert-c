@@ -44,3 +44,6 @@ Session.vim
 
 # Compiled program
 tempconvert
+
+# Python
+.ropeproject
