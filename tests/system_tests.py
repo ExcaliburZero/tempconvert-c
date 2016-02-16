@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 ### END LICENSE
-"""These are integration tests for tempconvert-c."""
+"""These are system tests for tempconvert-c."""
 
 from __future__ import print_function
 from subprocess import Popen, PIPE
@@ -76,7 +76,7 @@ def test_error(command, expected_error_message):
 
 def main():
     """
-    Runs the various integration tests.
+    Runs the various system tests.
 
     If all tests pass, then the script ends successfully. If any tests fail,
     then the failing cases are printed out, and the script ends with an error.

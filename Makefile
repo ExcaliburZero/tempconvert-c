@@ -2,7 +2,7 @@ help:
 		@echo "The following make commands are valid, and can be run as 'make COMMAND':"
 		@echo ""
 		@echo "  compile  compiles the application" 
-		@echo "  intetest runs the integration tests"
+		@echo "  systest  runs the system tests"
 		@echo "  doc      generates the application's documentation"
 		@echo "  man      displays the man file for the application"
 		@echo ""
@@ -10,8 +10,8 @@ help:
 compile:
 	gcc -o tempconvert src/main.c src/temperature_units.c -Wall -Werror -std=gnu99
 
-intetest:
-	python tests/integration_tests.py
+systest:
+	python tests/system_tests.py
 
 doc:
 	doxygen

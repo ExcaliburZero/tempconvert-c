@@ -29,14 +29,14 @@ The project can be compiled from source into an executable file throught he use 
 make compile
 ```
 
-### Integration tests
-The project has a set of integration tests associated with it which can be run after the program has been compiled in order to make usre that the compiled program correctly functions with certain test inputs and outputs. The tests can be run by using the following command within the main directory of the project:
+### System tests
+The project has a set of system tests associated with it which can be run after the program has been compiled in order to make usre that the compiled program correctly functions with certain test inputs and outputs. The tests can be run by using the following command within the main directory of the project:
 
 ```
-make intetest
+make systest
 ```
 
-The integration tests are handled by the file `tests/integration_tests.py`. Test cases are defined using a list which gives the input, input unit, output unit, and expected output. If any of the given tests fail then error messages are printed out for each failure.
+The system tests are handled by the file `tests/system_tests.py`. Test cases are defined using a list which gives the input, input unit, output unit, and expected output. If any of the given tests fail then error messages are printed out for each failure.
 
 ```
 [Input_Temp, "Input_Unit", "Output_Unit", Expected_Output],
