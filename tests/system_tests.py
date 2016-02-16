@@ -29,49 +29,38 @@ from subprocess import Popen, PIPE
 import sys
 
 
-def run_test(input_temp, input_unit, output_unit, expected_temp):
+def run_test(input_temp, input_unit, output_unit):
     """
-    Runs a test of the program with the given conditions, and compare it
-    against the given expected output.
+    Runs a test of the program with the given conditions, and return its output.
 
     :param float input_temp: The input temperature.
     :param str input_unit: The input unit.
     :param str output_unit: The output unit.
-    :param float expected_temp: The temperature output expected.
-    :returns bool: Whether or not the program output was correct.
+    :returns str: The output of the command.
     """
     # Construct the command to run
     command = "echo '" + str(input_temp) + "' | ./tempconvert " + input_unit + " " + output_unit
 
     # Run the command and get its output
     program_run = Popen(command, shell=True, stdout=PIPE)
-    try:
-        output = float(program_run.communicate()[0])
-    except ValueError:
-        return False
-
-    # Return if the output was correct or not
-    return output == expected_temp
+    return float(program_run.communicate()[0])
 
 
-def test_error(command, expected_error_message):
+def test_error(command):
     """
-    Runs a given invalid command and makes sure that the correct error message
-    is given for that command.
+    Runs a given invalid command and return its stderr output.
 
     :param str command: The invalid command to run.
-    :param str expected_error_message: The error message expected for the
     command.
-    :returns bool: Whether or not the error message was correct.
+    :returns str: The error output of the command.
     """
     # Run the command and get its output
     program_run = Popen(command, shell=True, stderr=PIPE)
     output = program_run.communicate()[1]
     if output is not None:
-        output = output.decode("utf-8")
-
-    # Return if the error message was correct or not
-    return expected_error_message == output
+        return output.decode("utf-8")
+    else:
+        return None
 
 
 def main():
@@ -90,16 +79,6 @@ def main():
         [0.0, "c", "c", 0.0],
     ]
 
-    # Run each of the test cases and log them if they fail
-    failures = 0
-    failure_output = ""
-    for test_case in test_cases:
-        if not run_test(test_case[0], test_case[1], test_case[2], test_case[3]):
-            failures += 1
-            failure_output += "---------------------\n"
-            failure_output += "Test Failed:\n"
-            failure_output += str(test_case) + "\n"
-
     # Test invalid command runs
     invalid_command_cases = [
         ["echo 'fgh' | ./tempconvert f c", "Invalid input temperature: fgh\n"],
@@ -109,29 +88,44 @@ def main():
         ["./tempconvert z g 0", "Invalid temperature unit: z\nInvalid temperature unit: g\nIncorrect number of temperature flags.\n"],
     ]
 
-    # Run each of the invalid command cases to make sure that they return the
-    # correct error messages
-    for invalid_command_case in invalid_command_cases:
-        if not test_error(invalid_command_case[0], invalid_command_case[1]):
+    # Run each of the test cases and print out the results fo the failing cases
+    failures = 0
+    for test_case in test_cases:
+        output = run_test(test_case[0], test_case[1], test_case[2])
+        if output != test_case[3]:
             failures += 1
-            failure_output += "---------------------\n"
-            failure_output += "Test Failed:\n"
-            failure_output += str(invalid_command_case) + "\n"
+            print("------------------------")
+            print("Convert: {} in {} to {}".format(test_case[0], test_case[1], test_case[2]))
+            print("-----")
+            print("E: {}\tA: {}".format(test_case[3], output))
+            print("-----")
+            print("Failed")
+            print("------------------------")
 
-    # If there were any failures, then print them out into stderr and end the
-    # script
+    # Run each of the invalid commands and print them out if their error
+    # messages are incorrect
+    for invalid_command_case in invalid_command_cases:
+        output = test_error(invalid_command_case[0])
+        if output != invalid_command_case[1]:
+            failures += 1
+            print("------------------------")
+            print("Invalid Command:\n{}".format(invalid_command_case[0]))
+            print("-----")
+            print("Expected:\n{}".format(invalid_command_case[1]))
+            print("Actual:\n{}".format(output))
+            print("-----")
+            print("Failed")
+            print("------------------------")
+
+    # Check if there were any failures
     if failures > 0:
-        output_messages = "---------------------\n"
-        output_messages += str(failures) + " tests failed.\n"
-        output_messages += failure_output
-        output_messages += "---------------------\n"
-        output_messages = output_messages[:-2]
-
-        print(output_messages, file=sys.stderr)
+        print("")
+        print("--------------")
+        print("{} Failures".format(failures))
+        print("--------------")
         sys.exit(1)
-
-    # If there weren't any errors, then end the script
-    return 0
+    else:
+        return 0
 
 # Run the main method
 if __name__ == '__main__':
